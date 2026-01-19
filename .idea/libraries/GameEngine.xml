@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="GameEngine">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../GameEngine/src" />
+    </SOURCES>
+  </library>
+</component>
