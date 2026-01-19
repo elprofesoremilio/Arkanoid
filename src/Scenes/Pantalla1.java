@@ -4,6 +4,7 @@ import Engine.Game;
 import Engine.Scene;
 import Objects.Ball;
 import Game.Config;
+import Objects.Brick;
 import Objects.DeadLine;
 import Objects.Player;
 
@@ -14,13 +15,23 @@ public class Pantalla1 extends Scene {
         super(game);
         Player player = new Player(
                 Config.GAME_WIDTH/2f-Config.PLAYER_WIDTH/2f,
-                Config.GAME_HEIGHT/2f+Config.GAME_HEIGHT/4f,
+                Config.GAME_HEIGHT - Config.PLAYER_Y_OFFSET,
                 Config.PLAYER_WIDTH,
                 Config.PLAYER_HEIGHT
         );
         this.addObject(player);
-        this.addObject(new Ball(Config.GAME_WIDTH/2f - Config.BALL_RADIUS/2f, 150, Config.BALL_RADIUS));
+        this.addObject(new Ball(Config.GAME_WIDTH/2f - Config.BALL_RADIUS/2f, Config.GAME_HEIGHT/2f + Config.BALL_Y_OFFSET, Config.BALL_RADIUS));
         this.addObject(new DeadLine());
+        for (int i=0; i<6; i++) {
+            for (int j = 0; j < 3; j++) {
+                this.addObject(new Brick(
+                        25 + (Config.BRICK_WIDTH + Config.BRICK_GAP_X) * i,
+                        50 + (Config.BRICK_HEIGHT + Config.BRICK_GAP_Y) * j,
+                        Config.BRICK_WIDTH,
+                        Config.BRICK_HEIGHT
+                ));
+            }
+        }
     }
 
     @Override

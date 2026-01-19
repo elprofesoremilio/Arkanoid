@@ -9,7 +9,7 @@ import Game.Config;
 import java.awt.*;
 
 public class Player extends GameObject implements Collidable {
-    private static final Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.BLACK};
+    private static final Color[] colors = {Config.PLAYER_COLOR, Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW};
     private float speed = 5.0f;
     private int colorIndex;
 
