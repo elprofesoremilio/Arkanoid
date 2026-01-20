@@ -2,7 +2,9 @@ package Objects;
 
 import Engine.Collidable;
 import Engine.GameObject;
+import Engine.Scene;
 import Game.Config;
+import Objects.bricks.Brick;
 
 import java.awt.*;
 
@@ -17,8 +19,8 @@ public class Ball extends GameObject implements Collidable {
      * @param y      Posición inicial en el eje Y.
      * @param radius Radio de la pelota.
      */
-    public Ball(float x, float y, int radius) {
-        super(x, y, radius, radius);
+    public Ball(float x, float y, int radius, Scene scene) {
+        super(x, y, radius, radius, scene);
         this.radius = radius;
         speedX = speedY = 2;
     }

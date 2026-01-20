@@ -1,13 +1,14 @@
 package Objects;
 
 import Engine.GameObject;
+import Engine.Scene;
 import Game.Config;
 
 import java.awt.*;
 
 public class DeadLine extends GameObject {
-    public DeadLine() {
-        super(0, Config.GAME_HEIGHT-5, Config.GAME_WIDTH, 5);
+    public DeadLine(Scene scene) {
+        super(0, Config.GAME_HEIGHT-5, Config.GAME_WIDTH, 5, scene);
     }
 
     @Override

@@ -1,12 +1,12 @@
-package Objects;
+package Objects.bricks;
 
 import Engine.*;
 import Game.Config;
+import Objects.Ball;
 
 import java.awt.*;
 
 public class Brick extends GameObject implements Collidable {
-    protected Scene scene;
     /**
      * Constructor base para un objeto de juego.
      *
@@ -17,8 +17,7 @@ public class Brick extends GameObject implements Collidable {
      * @param scene  Escena en la que está el ladrillo
      */
     public Brick(float x, float y, int width, int height, Scene scene) {
-        super(x, y, width, height);
-        this.scene = scene;
+        super(x, y, width, height, scene);
     }
 
     @Override

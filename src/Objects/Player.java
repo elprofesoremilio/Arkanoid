@@ -1,9 +1,6 @@
 package Objects;
 
-import Engine.Collidable;
-import Engine.Game;
-import Engine.GameObject;
-import Engine.InputHandler;
+import Engine.*;
 import Game.Config;
 
 import java.awt.*;
@@ -12,15 +9,16 @@ public class Player extends GameObject implements Collidable {
     private static final Color[] colors = {Config.PLAYER_COLOR, Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW};
     private float speed = 5.0f;
     private int colorIndex;
+    private InputHandler input;
 
-    public Player(float x, float y, int width, int height) {
-        super(x, y, width, height);
+    public Player(float x, float y, int width, int height, Scene scene) {
+        super(x, y, width, height, scene);
         this.colorIndex = 0;
+        this.input = scene.getInput();
     }
 
     @Override
     public void update(float delta) {
-        InputHandler input = Game.getInput();
         if (input.left) {
             this.x -= speed * delta;
         }
