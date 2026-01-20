@@ -23,6 +23,6 @@ public class Config {
     public static final Color BRICK_COLOR = new Color(150, 100,20);
 
     // Debug properties
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
     public static final Color DEBUG_COLOR = Color.red;
 }

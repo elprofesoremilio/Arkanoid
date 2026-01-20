@@ -1,12 +1,19 @@
 package Objects;
 
+import Engine.Collidable;
 import Engine.GameObject;
 import Engine.Scene;
 import Game.Config;
+import Scenes.GameOverScene;
 
 import java.awt.*;
 
-public class DeadLine extends GameObject {
+public class DeadLine extends GameObject implements Collidable {
+    @Override
+    public void onCollision(GameObject other) {
+        scene.getGame().setScene(new GameOverScene(scene.getGame()));
+    }
+
     public DeadLine(Scene scene) {
         super(0, Config.GAME_HEIGHT-5, Config.GAME_WIDTH, 5, scene);
     }

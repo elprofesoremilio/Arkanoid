@@ -55,7 +55,13 @@ public class Level1Scene extends SceneWithScore {
                 }
             }
         }
-        this.addObject(new MovableBrick(25, 50 + (Config.BRICK_HEIGHT + Config.BRICK_GAP_Y) * 3, Config.BRICK_WIDTH, Config.BRICK_HEIGHT, this));
+        this.addObject(new MovableBrick(
+                (int)(Math.random()*Config.GAME_WIDTH),
+                50 + (Config.BRICK_HEIGHT + Config.BRICK_GAP_Y) * 3,
+                Config.BRICK_WIDTH,
+                Config.BRICK_HEIGHT,
+                this)
+        );
         this.addObject(new DeadLine(this));
     }
 

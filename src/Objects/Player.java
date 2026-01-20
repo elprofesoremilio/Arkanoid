@@ -25,6 +25,11 @@ public class Player extends GameObject implements Collidable {
         if (input.right) {
             this.x += speed * delta;
         }
+        if (x<0) {
+            x=0;
+        } else if (x>=Config.GAME_WIDTH-width) {
+            x=Config.GAME_WIDTH-width;
+        }
 
     }
 
