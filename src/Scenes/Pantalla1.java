@@ -24,12 +24,15 @@ public class Pantalla1 extends Scene {
         this.addObject(new DeadLine());
         for (int i=0; i<6; i++) {
             for (int j = 0; j < 3; j++) {
-                this.addObject(new Brick(
+                this.addObject(
+                    new Brick(
                         25 + (Config.BRICK_WIDTH + Config.BRICK_GAP_X) * i,
                         50 + (Config.BRICK_HEIGHT + Config.BRICK_GAP_Y) * j,
                         Config.BRICK_WIDTH,
-                        Config.BRICK_HEIGHT
-                ));
+                        Config.BRICK_HEIGHT,
+                        this
+                    )
+                );
             }
         }
     }

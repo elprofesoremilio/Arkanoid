@@ -47,7 +47,7 @@ public class Ball extends GameObject implements Collidable {
 
     @Override
     public void onCollision(GameObject other) {
-        if (other.getClass() == Player.class) {
+        if (other.getClass() == Player.class || other instanceof Brick) {
             // Calculamos el rectángulo de intersección para saber cuánto se han metido uno en otro
             Rectangle interseccion = this.getBounds().intersection(other.getBounds());
 
