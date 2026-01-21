@@ -1,0 +1,93 @@
+@startuml
+class Scenes.VictoryScene {
++ void update(float)
++ void render(Graphics2D)
+}
+
+class Scenes.GameOverScene {
++ void update(float)
++ void render(Graphics2D)
+}
+
+abstract class Scenes.Levels.BaseLevel {
+# Player player
+# Ball ball
+# int levelNumber
+# boolean running
+# {abstract}void initBricks()
+# {abstract}Scene getNextLevel()
++ void update(float)
++ void render(Graphics2D)
++ void resetPositions()
++ void setRunning(boolean)
+}
+
+class Objects.bricks.MovableBrick {
++ void update(float)
+}
+
+class Objects.bricks.HardBrick {
+- int contadorGolpes
++ void render(Graphics2D)
++ void onCollision(GameObject)
+}
+
+
+class Objects.bricks.Brick {
+# boolean unbreakeable
++ void setUnbreakeable(boolean)
++ boolean isUnbreakeable()
++ void onCollision(GameObject)
++ void update(float)
++ void render(Graphics2D)
+}
+
+
+class Objects.Ball {
+- int radius
+- GameState gameState
++ void update(float)
++ void render(Graphics2D)
++ void onCollision(GameObject)
+}
+
+
+class Objects.Player {
+- {static} Color[] colors
+- float speed
+- int colorIndex
+- InputHandler input
++ void update(float)
++ void render(Graphics2D)
++ void onCollision(GameObject)
+}
+
+
+class Objects.DeadLine {
++ void onCollision(GameObject)
++ void update(float)
++ void render(Graphics2D)
+}
+
+
+
+Objects.bricks.Brick <|-- Objects.bricks.MovableBrick
+Objects.bricks.Brick <|-- Objects.bricks.HardBrick
+Objects.bricks.Collidable <|.. Objects.bricks.Brick
+Objects.bricks.GameObject <|-- Objects.bricks.Brick
+Engine.Collidable <|.. Objects.Ball
+Engine.GameObject <|-- Objects.Ball
+Objects.Collidable <|.. Objects.Player
+Objects.GameObject <|-- Objects.Player
+Engine.Collidable <|.. Objects.DeadLine
+Engine.GameObject <|-- Objects.DeadLine
+
+
+
+Engine.Scene <|-- Scenes.Levels.BaseLevel
+
+
+
+Engine.Scene <|-- Scenes.VictoryScene
+Engine.Scene <|-- Scenes.GameOverScene
+@enduml

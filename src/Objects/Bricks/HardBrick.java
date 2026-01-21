@@ -1,12 +1,13 @@
-package Objects;
+package Objects.Bricks;
 
 import Engine.GameObject;
 import Engine.Scene;
 import Engine.SceneWithScore;
+import Objects.Ball;
 
 import java.awt.*;
 
-public class BrickHard extends Brick {
+public class HardBrick extends Brick {
 
     private int contadorGolpes;
     /**
@@ -18,7 +19,7 @@ public class BrickHard extends Brick {
      * @param height Alto del objeto.
      * @param scene  Escena en la que está el ladrillo
      */
-    public BrickHard(float x, float y, int width, int height, Scene scene) {
+    public HardBrick(float x, float y, int width, int height, Scene scene) {
         super(x, y, width, height, scene);
         contadorGolpes = 2;
     }

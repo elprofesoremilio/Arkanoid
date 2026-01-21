@@ -4,6 +4,9 @@ import Engine.Game;
 import Engine.SceneWithScore;
 import Objects.*;
 import Game.Config;
+import Objects.Bricks.Brick;
+import Objects.Bricks.HardBrick;
+import Objects.Bricks.MovableBrick;
 
 import java.awt.*;
 import java.util.Random;
@@ -17,16 +20,17 @@ public class Pantalla1 extends SceneWithScore {
                 Config.GAME_WIDTH/2f-Config.PLAYER_WIDTH/2f,
                 Config.GAME_HEIGHT - Config.PLAYER_Y_OFFSET,
                 Config.PLAYER_WIDTH,
-                Config.PLAYER_HEIGHT
+                Config.PLAYER_HEIGHT,
+                this
         );
         this.addObject(player);
-        this.addObject(new Ball(Config.GAME_WIDTH/2f - Config.BALL_RADIUS/2f, Config.GAME_HEIGHT/2f + Config.BALL_Y_OFFSET, Config.BALL_RADIUS));
-        this.addObject(new DeadLine());
+        this.addObject(new Ball(Config.GAME_WIDTH/2f - Config.BALL_RADIUS/2f, Config.GAME_HEIGHT/2f + Config.BALL_Y_OFFSET, Config.BALL_RADIUS, this));
+        this.addObject(new DeadLine(this));
         for (int i=0; i<6; i++) {
             for (int j = 0; j < 3; j++) {
                 if (r.nextInt(5)==3) {
                     this.addObject(
-                            new BrickHard(
+                            new HardBrick(
                                     25 + (Config.BRICK_WIDTH + Config.BRICK_GAP_X) * i,
                                     50 + (Config.BRICK_HEIGHT + Config.BRICK_GAP_Y) * j,
                                     Config.BRICK_WIDTH,
@@ -47,6 +51,13 @@ public class Pantalla1 extends SceneWithScore {
                 }
             }
         }
+        this.addObject(new MovableBrick(
+                170,
+                50 + (Config.BRICK_HEIGHT + Config.BRICK_GAP_Y) * 3,
+                Config.BRICK_WIDTH,
+                Config.BRICK_HEIGHT,
+                this
+        ));
     }
 
     @Override

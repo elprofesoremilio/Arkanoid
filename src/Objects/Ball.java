@@ -2,7 +2,10 @@ package Objects;
 
 import Engine.Collidable;
 import Engine.GameObject;
+import Engine.Scene;
 import Game.Config;
+import Objects.Bricks.Brick;
+import Scenes.GameOverScene;
 
 import java.awt.*;
 
@@ -17,10 +20,10 @@ public class Ball extends GameObject implements Collidable {
      * @param y      Posición inicial en el eje Y.
      * @param radius Radio de la pelota.
      */
-    public Ball(float x, float y, int radius) {
-        super(x, y, radius, radius);
+    public Ball(float x, float y, int radius, Scene scene) {
+        super(x, y, radius, radius, scene);
         this.radius = radius;
-        speedX = speedY = 2;
+        speedX = speedY = Config.BALL_SPEED;
     }
 
     @Override
@@ -67,6 +70,8 @@ public class Ball extends GameObject implements Collidable {
                 if (this.y < other.getY()) this.y -= interseccion.height;
                 else this.y += interseccion.height;
             }
+        } else if (other instanceof DeadLine) {
+            scene.getGame().setScene(new GameOverScene(scene.getGame()));
         }
     }
 }

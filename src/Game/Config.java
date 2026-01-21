@@ -11,6 +11,7 @@ public class Config {
     public static final int BALL_RADIUS = 20;
     public static final int PLAYER_Y_OFFSET = 75;
     public static final int BALL_Y_OFFSET = -50;
+    public static final int BALL_SPEED = 4;
     public static final int BRICK_WIDTH = 50;
     public static final int BRICK_HEIGHT = PLAYER_HEIGHT;
     public static final int BRICK_GAP_X = 10;
@@ -23,6 +24,6 @@ public class Config {
     public static final Color BRICK_COLOR = new Color(150, 100,20);
 
     // Debug properties
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
     public static final Color DEBUG_COLOR = Color.red;
 }
