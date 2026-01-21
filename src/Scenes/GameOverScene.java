@@ -19,7 +19,7 @@ public class GameOverScene extends Scene {
     public void update(float delta) {
         super.update(delta);
         if (input.isKeyPressed(KeyEvent.VK_R)) {
-            game.setScene(new Level1(game));
+            game.setScene(new Level1(game, 1));
         }
     }
 

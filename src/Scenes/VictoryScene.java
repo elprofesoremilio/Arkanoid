@@ -21,7 +21,7 @@ public class VictoryScene extends Scene {
     public void update(float delta) {
         super.update(delta);
         if (input.isKeyPressed(KeyEvent.VK_N)) {
-            game.setScene(new Level1(game));
+            game.setScene(new Level1(game,1));
         }
     }
 

@@ -1,44 +1,31 @@
 package Scenes.Levels;
 
 import Engine.Game;
-import Engine.SceneWithScore;
-import Engine.TextRenderer;
-import Objects.*;
+import Engine.Scene;
 import Game.Config;
+import Objects.DeadLine;
 import Objects.bricks.Brick;
 import Objects.bricks.HardBrick;
 import Objects.bricks.MovableBrick;
 import Scenes.VictoryScene;
 
-import java.awt.*;
 import java.util.Random;
 
-public class Level1 extends SceneWithScore {
+public class Level1 extends BaseLevel {
     private boolean running;
-    private int lives = Config.DEFAULT_LIVES;
 
-    public Level1(Game game) {
-        super(game);
+    public Level1(Game game, int levelNumber) {
         running = false;
-        Random r = new Random();
+        super(game, levelNumber);
+    }
 
-        Player player = new Player(
-                (Config.GAME_WIDTH-Config.PLAYER_WIDTH)/2f,
-                Config.GAME_HEIGHT - Config.PLAYER_Y_OFFSET,
-                Config.PLAYER_WIDTH,
-                Config.PLAYER_HEIGHT,
-                this
-        );
-        this.addObject(player);
-        this.addObject(new Ball(
-                Config.GAME_WIDTH/2f - Config.BALL_RADIUS/2f,
-                Config.GAME_HEIGHT/2f + Config.BALL_Y_OFFSET,
-                Config.BALL_RADIUS,
-                this)
-        );
-        for (int i=0; i<6; i++) {
+    @Override
+    protected void initBricks() {
+        for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 3; j++) {
-                if (r.nextInt(5)==3) {
+                Random r = new Random();
+
+                if (r.nextInt(5) == 3) {
                     this.addObject(
                             new HardBrick(
                                     25 + (Config.BRICK_WIDTH + Config.BRICK_GAP_X) * i,
@@ -61,9 +48,9 @@ public class Level1 extends SceneWithScore {
                 }
             }
         }
-        int movableBrickX = (int)(Math.random()*Config.GAME_WIDTH);
-        if (movableBrickX>Config.GAME_WIDTH-Config.BRICK_WIDTH) {
-            movableBrickX = Config.GAME_WIDTH-Config.BRICK_WIDTH;
+        int movableBrickX = (int) (Math.random() * Config.GAME_WIDTH);
+        if (movableBrickX > Config.GAME_WIDTH - Config.BRICK_WIDTH) {
+            movableBrickX = Config.GAME_WIDTH - Config.BRICK_WIDTH;
         }
         this.addObject(new MovableBrick(
                 movableBrickX,
@@ -72,34 +59,10 @@ public class Level1 extends SceneWithScore {
                 Config.BRICK_HEIGHT,
                 this)
         );
-        this.addObject(new DeadLine(this));
     }
 
     @Override
-    public void render(Graphics2D g) {
-        g.setBackground(Color.WHITE);
-        g.clearRect(0,0, Config.GAME_WIDTH, Config.GAME_HEIGHT);
-        super.render(g);
-        if (!running) {
-            g.setFont(Config.DEFAULT_FONT);
-            TextRenderer.drawCentered(g,"Pulsa ESPACIO para empezar", Config.GAME_WIDTH, Config.GAME_HEIGHT, Config.DEFAULT_FONT, Color.BLUE);
-        }
-
-    }
-
-    @Override
-    public void update(float delta) {
-        if (running) {
-            super.update(delta);
-            // Contamos cuántos ladrillos quedan
-            int bricksLeft = getCountOf(Brick.class);
-
-            if (bricksLeft == 0) {
-                // ¡Victoria! Cambiamos a la escena de éxito
-                game.setScene(new VictoryScene(game, score));
-            }
-        } else if (input.space){
-            running = true;
-        }
+    protected Scene getNextLevel() {
+        return new VictoryScene(game, this.score);
     }
 }

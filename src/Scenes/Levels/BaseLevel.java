@@ -2,15 +2,17 @@ package Scenes.Levels;
 
 import Engine.Game;
 import Engine.Scene;
+import Engine.SceneWithScore;
 import Engine.TextRenderer;
 import Game.Config;
 import Objects.Ball;
+import Objects.DeadLine;
 import Objects.Player;
 import Objects.bricks.Brick;
 
 import java.awt.*;
 
-public abstract class BaseLevel extends Scene {
+public abstract class BaseLevel extends SceneWithScore {
 
     protected Player player;
     protected Ball ball;
@@ -37,6 +39,7 @@ public abstract class BaseLevel extends Scene {
 
         this.addObject(player);
         this.addObject(ball);
+        this.addObject(new DeadLine(this));
 
         // Llamamos al método que cada nivel concreto implementará
         initBricks();
@@ -61,27 +64,15 @@ public abstract class BaseLevel extends Scene {
             game.setScene(getNextLevel());
         }
 
-        // Condición de Derrota: Pelota cae (esto lo veremos en las vidas)
-        if (ball.getY() > 600) {
-            handleBallLoss();
-        }
-    }
-
-    private void handleBallLoss() {
-        // Por ahora, reiniciamos el nivel
-        game.setScene(new Level1(game));
     }
 
     @Override
     public void render(Graphics2D g) {
-        // Fondo genérico de nivel
-        g.setColor(Config.LEVEL_BACKGROUND_COLOR);
-        g.fillRect(0, 0, Config.GAME_WIDTH, Config.GAME_HEIGHT);
+        super.render(g);
 
         // Dibujamos el número de nivel
-        TextRenderer.draw(g, "Level " + levelNumber, 10, 20, new Font("Arial", Font.PLAIN, 20), Color.GRAY);
+        TextRenderer.drawHorizontalCentered(g, "Level " + levelNumber, game.getWidth(), 20, new Font("Arial", Font.PLAIN, 20), Color.GRAY);
 
-        super.render(g);
     }
 
     public void resetPositions() {
