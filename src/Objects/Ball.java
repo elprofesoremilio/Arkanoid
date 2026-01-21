@@ -22,16 +22,18 @@ public class Ball extends GameObject implements Collidable {
     public Ball(float x, float y, int radius, Scene scene) {
         super(x, y, radius, radius, scene);
         this.radius = radius;
-        speedX = speedY = 2;
+        speedX = speedY = Config.BALL_SPEED;
     }
 
     @Override
     public void update(float delta) {
         if (x > Config.GAME_WIDTH - radius || x < 0) {
             speedX = -speedX;
+            x = (x<0) ? 0 : Config.GAME_WIDTH - radius;
         }
         if (y > Config.GAME_HEIGHT - radius || y < 0) {
             speedY = -speedY;
+            y = (y<0) ? 0 : Config.GAME_HEIGHT - radius;
         }
         x += speedX * delta;
         y += speedY * delta;

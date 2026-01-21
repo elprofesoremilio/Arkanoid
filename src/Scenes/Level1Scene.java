@@ -2,6 +2,7 @@ package Scenes;
 
 import Engine.Game;
 import Engine.SceneWithScore;
+import Engine.TextRenderer;
 import Objects.*;
 import Game.Config;
 import Objects.bricks.Brick;
@@ -12,10 +13,13 @@ import java.awt.*;
 import java.util.Random;
 
 public class Level1Scene extends SceneWithScore {
+    private boolean running;
 
     public Level1Scene(Game game) {
         super(game);
+        running = false;
         Random r = new Random();
+
         Player player = new Player(
                 Config.GAME_WIDTH/2f-Config.PLAYER_WIDTH/2f,
                 Config.GAME_HEIGHT - Config.PLAYER_Y_OFFSET,
@@ -55,8 +59,12 @@ public class Level1Scene extends SceneWithScore {
                 }
             }
         }
+        int movableBrickX = (int)(Math.random()*Config.GAME_WIDTH);
+        if (movableBrickX>Config.GAME_WIDTH-Config.BRICK_WIDTH) {
+            movableBrickX = Config.GAME_WIDTH-Config.BRICK_WIDTH;
+        }
         this.addObject(new MovableBrick(
-                (int)(Math.random()*Config.GAME_WIDTH),
+                movableBrickX,
                 50 + (Config.BRICK_HEIGHT + Config.BRICK_GAP_Y) * 3,
                 Config.BRICK_WIDTH,
                 Config.BRICK_HEIGHT,
@@ -70,5 +78,19 @@ public class Level1Scene extends SceneWithScore {
         g.setBackground(Color.WHITE);
         g.clearRect(0,0, Config.GAME_WIDTH, Config.GAME_HEIGHT);
         super.render(g);
+        if (!running) {
+            g.setFont(Config.DEFAULT_FONT);
+            TextRenderer.drawCentered(g,"Pulsa ESPACIO para empezar", Config.GAME_WIDTH, Config.GAME_HEIGHT, Config.DEFAULT_FONT, Color.BLUE);
+        }
+
+    }
+
+    @Override
+    public void update(float delta) {
+        if (running) {
+            super.update(delta);
+        } else if (input.space ){
+            running = true;
+        }
     }
 }

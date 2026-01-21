@@ -2,6 +2,8 @@ package Scenes;
 
 import Engine.Game;
 import Engine.Scene;
+import Engine.TextRenderer;
+import Game.Config;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -23,12 +25,7 @@ public class GameOverScene extends Scene {
     @Override
     public void render(Graphics2D g) {
         super.render(g);
-        Font font = new Font("Arial", Font.BOLD, 40);
-        g.setFont(font);
-        g.setColor(Color.RED);
-        g.drawString("GAME OVER", 80, 250);
-        font = new  Font("Arial", Font.BOLD, 20);
-        g.setFont(font);
-        g.drawString("Pulsa R para reiniciar la partida", 45, 350);
+        TextRenderer.drawHorizontalCentered(g, "GAME OVER", Config.GAME_WIDTH, 300, new Font("Arial", Font.BOLD, 40), Color.RED);
+        TextRenderer.drawHorizontalCentered(g, "Pulsa R para reiniciar la partida", Config.GAME_WIDTH, 400,  new Font("Arial", Font.BOLD, 20), Color.RED);
     }
 }
