@@ -4,6 +4,7 @@ import Engine.Game;
 import Engine.Scene;
 import Engine.TextRenderer;
 import Game.Config;
+import Scenes.Levels.Level1;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -18,7 +19,7 @@ public class GameOverScene extends Scene {
     public void update(float delta) {
         super.update(delta);
         if (input.isKeyPressed(KeyEvent.VK_R)) {
-            game.setScene(new Level1Scene(game));
+            game.setScene(new Level1(game));
         }
     }
 

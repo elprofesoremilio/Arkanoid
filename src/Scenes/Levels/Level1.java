@@ -1,4 +1,4 @@
-package Scenes;
+package Scenes.Levels;
 
 import Engine.Game;
 import Engine.SceneWithScore;
@@ -8,20 +8,22 @@ import Game.Config;
 import Objects.bricks.Brick;
 import Objects.bricks.HardBrick;
 import Objects.bricks.MovableBrick;
+import Scenes.VictoryScene;
 
 import java.awt.*;
 import java.util.Random;
 
-public class Level1Scene extends SceneWithScore {
+public class Level1 extends SceneWithScore {
     private boolean running;
+    private int lives = Config.DEFAULT_LIVES;
 
-    public Level1Scene(Game game) {
+    public Level1(Game game) {
         super(game);
         running = false;
         Random r = new Random();
 
         Player player = new Player(
-                Config.GAME_WIDTH/2f-Config.PLAYER_WIDTH/2f,
+                (Config.GAME_WIDTH-Config.PLAYER_WIDTH)/2f,
                 Config.GAME_HEIGHT - Config.PLAYER_Y_OFFSET,
                 Config.PLAYER_WIDTH,
                 Config.PLAYER_HEIGHT,
@@ -89,7 +91,14 @@ public class Level1Scene extends SceneWithScore {
     public void update(float delta) {
         if (running) {
             super.update(delta);
-        } else if (input.space ){
+            // Contamos cuántos ladrillos quedan
+            int bricksLeft = getCountOf(Brick.class);
+
+            if (bricksLeft == 0) {
+                // ¡Victoria! Cambiamos a la escena de éxito
+                game.setScene(new VictoryScene(game, score));
+            }
+        } else if (input.space){
             running = true;
         }
     }

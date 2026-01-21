@@ -6,7 +6,9 @@ public class Config {
     // Game properties
     public static final int GAME_WIDTH = 400;
     public static final int GAME_HEIGHT = 600;
+    public static final int DEFAULT_LIVES = 3;
 
+    // Objects properties
     public static final int PLAYER_WIDTH = 80;
     public static final int PLAYER_HEIGHT = 10;
     public static final int PLAYER_Y_OFFSET = 75;
@@ -30,4 +32,5 @@ public class Config {
     // Debug properties
     public static final boolean DEBUG = false;
     public static final Color DEBUG_COLOR = Color.red;
+    public static final Color LEVEL_BACKGROUND_COLOR = Color.WHITE;
 }
