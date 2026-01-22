@@ -63,8 +63,8 @@ public abstract class BaseLevel extends Scene {
             super.update(delta);
 
             // Contamos solo los ladrillos que NO son indestructibles
-            int breakableBricks = countIf(obj ->
-                    obj instanceof Brick && !((Brick) obj).isUnbreakeable()
+            int breakableBricks = countIf(
+                    obj -> obj instanceof Brick && !((Brick) obj).isUnbreakeable()
             );
 
             if (breakableBricks == 0) {
@@ -81,10 +81,10 @@ public abstract class BaseLevel extends Scene {
         super.render(g);
 
         // Dibujamos el número de nivel
-        TextRenderer.drawHorizontalCentered(g, "Level " + levelNumber, game.getWidth(), 20, new Font("Arial", Font.PLAIN, 20), Color.GRAY);
+        TextRenderer.drawHorizontallyCentered(g, "Level " + levelNumber, game.getWidth(), 20, new Font("Arial", Font.PLAIN, 20), Color.GRAY);
         String scoreString = String.format("%s%02d", Config.SCORE_TEXT, game.getGameState().getScore());
         TextRenderer.draw(g, scoreString, 10, 20, new Font("Arial", Font.BOLD, 20), Color.BLUE);
-        TextRenderer.drawRightAligned(g, String.format("%s%02d", Config.LIVES_TEXT, game.getGameState().getLives()), game.getWidth() - 10, 20, new Font("Arial", Font.BOLD, 20), Color.BLUE);
+        TextRenderer.drawRightAligned(g, String.format("%s%02d", Config.LIVES_TEXT, game.getGameState().getLives()), game.getWidth() - 10, 20, new Font("Arial", Font.BOLD, 20), Color.BLUE, null);
         if (!running) {
             TextRenderer.drawCentered(g, "Pulsa ESPACIO para empezar", game.getWidth(), game.getHeight(), new Font("Arial", Font.BOLD, 25), Color.RED, Color.BLACK);
         }

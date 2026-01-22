@@ -9,10 +9,8 @@ import Objects.bricks.MovableBrick;
 import java.util.Random;
 
 public class Level0 extends BaseLevel {
-    private boolean running;
 
     public Level0(Game game, int levelNumber) {
-        running = false;
         super(game, levelNumber);
     }
 
@@ -29,6 +27,9 @@ public class Level0 extends BaseLevel {
                 Config.BRICK_HEIGHT,
                 this)
         );
+        Brick brick = new Brick(50, 50, Config.BRICK_WIDTH, Config.BRICK_HEIGHT, this);
+        brick.setUnbreakeable(true);
+        this.addObject(brick);
     }
 
     @Override

@@ -26,7 +26,7 @@ public class GameOverScene extends Scene {
     @Override
     public void render(Graphics2D g) {
         super.render(g);
-        TextRenderer.drawHorizontalCentered(g, "GAME OVER", Config.GAME_WIDTH, 300, new Font("Arial", Font.BOLD, 40), Color.RED);
-        TextRenderer.drawHorizontalCentered(g, "Pulsa R para reiniciar la partida", Config.GAME_WIDTH, 400,  new Font("Arial", Font.BOLD, 20), Color.RED);
+        TextRenderer.drawHorizontallyCentered(g, "GAME OVER", Config.GAME_WIDTH, 300, new Font("Arial", Font.BOLD, 40), Color.RED);
+        TextRenderer.drawHorizontallyCentered(g, "Pulsa R para reiniciar la partida", Config.GAME_WIDTH, 400,  new Font("Arial", Font.BOLD, 20), Color.RED);
     }
 }
