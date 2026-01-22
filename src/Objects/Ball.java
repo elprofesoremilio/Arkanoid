@@ -82,6 +82,7 @@ public class Ball extends GameObject implements Collidable {
             if (gameState.getLives() > 0) {
                 // Si le quedan vidas, reseteamos posiciones en el nivel actual
                 ((BaseLevel)scene).resetPositions();
+                ((BaseLevel)scene).setRunning(false);
             } else {
                 // Si no, Game Over directo
                 gameState.reset(); // Opcional, según si quieres que el Game Over muestre el score final

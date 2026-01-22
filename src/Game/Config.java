@@ -33,5 +33,6 @@ public class Config {
     public static final boolean DEBUG = false;
     public static final Color DEBUG_COLOR = Color.red;
     public static final Color LEVEL_BACKGROUND_COLOR = Color.WHITE;
-    public static final Object SCORE_TEXT = "Score :";
+    public static final Object SCORE_TEXT = "Score: ";
+    public static final Object LIVES_TEXT = "Lives: ";
 }

@@ -16,11 +16,13 @@ public abstract class BaseLevel extends Scene {
     protected Player player;
     protected Ball ball;
     protected int levelNumber;
+    protected boolean running;
 
     public BaseLevel(Game game, int levelNumber) {
         super(game);
         this.levelNumber = levelNumber;
         game.getGameState().setLevel(levelNumber);
+        running = false;
 
         // Inicializamos lo común
         this.player = new Player(
@@ -57,15 +59,19 @@ public abstract class BaseLevel extends Scene {
 
     @Override
     public void update(float delta) {
-        super.update(delta);
+        if (running) {
+            super.update(delta);
 
-        // Contamos solo los ladrillos que NO son indestructibles
-        int breakableBricks = countIf(obj ->
-                obj instanceof Brick && !((Brick) obj).isUnbreakeable()
-        );
+            // Contamos solo los ladrillos que NO son indestructibles
+            int breakableBricks = countIf(obj ->
+                    obj instanceof Brick && !((Brick) obj).isUnbreakeable()
+            );
 
-        if (breakableBricks == 0) {
-            game.setScene(getNextLevel());
+            if (breakableBricks == 0) {
+                game.setScene(getNextLevel());
+            }
+        } else if (input.space) {
+            running = true;
         }
 
     }
@@ -78,7 +84,10 @@ public abstract class BaseLevel extends Scene {
         TextRenderer.drawHorizontalCentered(g, "Level " + levelNumber, game.getWidth(), 20, new Font("Arial", Font.PLAIN, 20), Color.GRAY);
         String scoreString = String.format("%s%02d", Config.SCORE_TEXT, game.getGameState().getScore());
         TextRenderer.draw(g, scoreString, 10, 20, new Font("Arial", Font.BOLD, 20), Color.BLUE);
-        TextRenderer.draw(g, String.format("Lives: %02d", game.getGameState().getLives()), 300, 20, new Font("Arial", Font.BOLD, 20), Color.BLUE);
+        TextRenderer.drawRightAligned(g, String.format("%s%02d", Config.LIVES_TEXT, game.getGameState().getLives()), game.getWidth() - 10, 20, new Font("Arial", Font.BOLD, 20), Color.BLUE);
+        if (!running) {
+            TextRenderer.drawCentered(g, "Pulsa ESPACIO para empezar", game.getWidth(), game.getHeight(), new Font("Arial", Font.BOLD, 25), Color.RED, Color.BLACK);
+        }
     }
 
     public void resetPositions() {
@@ -87,5 +96,9 @@ public abstract class BaseLevel extends Scene {
         ball.setX((Config.GAME_WIDTH-Config.BALL_RADIUS)/2f);
         ball.setY(Config.GAME_HEIGHT/2f + Config.BALL_Y_OFFSET);
         ball.setVelocity(Config.BALL_SPEED,Config.BALL_SPEED);
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
     }
 }
