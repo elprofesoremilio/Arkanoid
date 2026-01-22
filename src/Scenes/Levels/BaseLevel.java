@@ -2,7 +2,6 @@ package Scenes.Levels;
 
 import Engine.Game;
 import Engine.Scene;
-import Engine.SceneWithScore;
 import Engine.TextRenderer;
 import Game.Config;
 import Objects.Ball;
@@ -12,7 +11,7 @@ import Objects.bricks.Brick;
 
 import java.awt.*;
 
-public abstract class BaseLevel extends SceneWithScore {
+public abstract class BaseLevel extends Scene {
 
     protected Player player;
     protected Ball ball;
@@ -21,6 +20,7 @@ public abstract class BaseLevel extends SceneWithScore {
     public BaseLevel(Game game, int levelNumber) {
         super(game);
         this.levelNumber = levelNumber;
+        game.getGameState().setLevel(levelNumber);
 
         // Inicializamos lo común
         this.player = new Player(
@@ -59,8 +59,12 @@ public abstract class BaseLevel extends SceneWithScore {
     public void update(float delta) {
         super.update(delta);
 
-        // Condición de Victoria: No quedan ladrillos
-        if (getCountOf(Brick.class) == 0) {
+        // Contamos solo los ladrillos que NO son indestructibles
+        int breakableBricks = countIf(obj ->
+                obj instanceof Brick && !((Brick) obj).isUnbreakeable()
+        );
+
+        if (breakableBricks == 0) {
             game.setScene(getNextLevel());
         }
 
@@ -72,7 +76,9 @@ public abstract class BaseLevel extends SceneWithScore {
 
         // Dibujamos el número de nivel
         TextRenderer.drawHorizontalCentered(g, "Level " + levelNumber, game.getWidth(), 20, new Font("Arial", Font.PLAIN, 20), Color.GRAY);
-
+        String scoreString = String.format("%s%02d", Config.SCORE_TEXT, game.getGameState().getScore());
+        TextRenderer.draw(g, scoreString, 10, 20, new Font("Arial", Font.BOLD, 20), Color.BLUE);
+        TextRenderer.draw(g, String.format("Lives: %02d", game.getGameState().getLives()), 300, 20, new Font("Arial", Font.BOLD, 20), Color.BLUE);
     }
 
     public void resetPositions() {

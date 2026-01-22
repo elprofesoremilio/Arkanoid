@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class Brick extends GameObject implements Collidable {
 
-    protected boolean undestroyable;
+    protected boolean unbreakeable;
 
     /**
      * Constructor base para un objeto de juego.
@@ -21,15 +21,23 @@ public class Brick extends GameObject implements Collidable {
      */
     public Brick(float x, float y, int width, int height, Scene scene) {
         super(x, y, width, height, scene);
-        this.undestroyable = false;
+        this.unbreakeable = false;
     }
 
     /**
      * Indica si el ladrillo es indestructible.
-     * @param undestroyable true si es indestructible, false en caso contrario.
+     * @param unbreakeable true si es indestructible, false en caso contrario.
      */
-    public void setUndestroyable(boolean undestroyable) {
-        this.undestroyable = undestroyable;
+    public void setUnbreakeable(boolean unbreakeable) {
+        this.unbreakeable = unbreakeable;
+    }
+
+    /**
+     * Comprueba si el ladrillo es indestructible.
+     * @return true si es indestructible, false en caso contrario.
+     */
+    public boolean isUnbreakeable() {
+        return unbreakeable;
     }
 
     /**
@@ -38,11 +46,9 @@ public class Brick extends GameObject implements Collidable {
      */
     @Override
     public void onCollision(GameObject other) {
-        if (!undestroyable && other instanceof Ball) {
+        if (!unbreakeable && other instanceof Ball) {
             scene.removeObject(this);
-            if (scene instanceof SceneWithScore) {
-                ((SceneWithScore) scene).addPoint();
-            }
+            scene.getGame().getGameState().addScore(1);
         }
     }
 

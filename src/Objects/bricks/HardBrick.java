@@ -2,7 +2,6 @@ package Objects.bricks;
 
 import Engine.GameObject;
 import Engine.Scene;
-import Engine.SceneWithScore;
 import Objects.Ball;
 
 import java.awt.*;
@@ -40,9 +39,7 @@ public class HardBrick extends Brick {
             contadorGolpes--;
             if (contadorGolpes==0) {
                 scene.removeObject(this);
-                if (scene instanceof SceneWithScore) {
-                    ((SceneWithScore) scene).addPoint();
-                }
+                scene.getGame().getGameState().addScore(2);
             }
         }
     }

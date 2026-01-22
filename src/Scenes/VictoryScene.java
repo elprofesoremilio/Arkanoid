@@ -10,11 +10,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class VictoryScene extends Scene {
-    private int score;
 
-    public VictoryScene(Game game, int score) {
+    public VictoryScene(Game game) {
         super(game);
-        this.score = score;
     }
 
     @Override
@@ -28,7 +26,7 @@ public class VictoryScene extends Scene {
     @Override
     public void render(Graphics2D g) {
         super.render(g);
-        TextRenderer.drawHorizontalCentered(g, "YOU WIN! -> "+score+" points", Config.GAME_WIDTH, 300, new Font("Arial", Font.BOLD, 40), Color.BLUE);
+        TextRenderer.drawHorizontalCentered(g, "YOU WIN! -> "+game.getGameState().getScore()+" points", Config.GAME_WIDTH, 300, new Font("Arial", Font.BOLD, 40), Color.BLUE);
         TextRenderer.drawHorizontalCentered(g, "Pulsa N para empezar otra partida", Config.GAME_WIDTH, 400,  new Font("Arial", Font.PLAIN, 20), Color.BLUE);
     }
 }

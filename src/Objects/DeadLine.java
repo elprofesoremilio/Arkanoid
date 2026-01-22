@@ -11,7 +11,6 @@ import java.awt.*;
 public class DeadLine extends GameObject implements Collidable {
     @Override
     public void onCollision(GameObject other) {
-        scene.getGame().setScene(new GameOverScene(scene.getGame()));
     }
 
     public DeadLine(Scene scene) {
