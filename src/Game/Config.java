@@ -6,7 +6,6 @@ public class Config {
     // Game properties
     public static final int GAME_WIDTH = 400;
     public static final int GAME_HEIGHT = 600;
-    public static final int DEFAULT_LIVES = 3;
 
     // Objects properties
     public static final int PLAYER_WIDTH = 80;
@@ -15,10 +14,9 @@ public class Config {
 
     public static final int BALL_RADIUS = 20;
     public static final int BALL_Y_OFFSET = -120;
-    public static final int BALL_SPEED = 4;
-    public static final float BALL_SPEED_X_MAX = 6.0f; // Máxima inclinación lateral
-    public static final float BALL_SPEED_Y_MIN = 3.0f; // Velocidad mínima vertical para que no aburra
-    public static final float BALL_SPEED_Y_MAX = 8.0f; // Para que no sea inmanejable
+    public static final int BALL_SPEED = 200;
+    public static final float BALL_SPEED_X_MAX = 300f; // Máxima inclinación lateral
+    public static final float BALL_SPEED_Y_MIN = 100f; // Velocidad mínima vertical para que no aburra
 
     public static final int BRICK_WIDTH = 50;
     public static final int BRICK_HEIGHT = PLAYER_HEIGHT;

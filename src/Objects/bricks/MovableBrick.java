@@ -15,7 +15,7 @@ public class MovableBrick extends Brick {
      */
     public MovableBrick(float x, float y, int width, int height, Scene scene) {
         super(x, y, width, height, scene);
-        speedX = 2f;
+        speedX = 200f;
     }
 
     @Override
