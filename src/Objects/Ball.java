@@ -56,25 +56,40 @@ public class Ball extends GameObject implements Collidable {
 
     @Override
     public void onCollision(GameObject other) {
-        if (other.getClass() == Player.class || other instanceof Brick) {
-            // Calculamos el rectángulo de intersección para saber cuánto se han metido uno en otro
+        if (other instanceof Player || other instanceof Brick) {
             Rectangle interseccion = this.getBounds().intersection(other.getBounds());
 
             if (interseccion.width < interseccion.height) {
-                // La colisión es lateral (el solapamiento es más estrecho que alto)
-                speedX = -speedX;
-
-                // CORRECCIÓN: Sacamos a la pelota del objeto para evitar el rebotado infinito
-                if (this.x < other.getX()) this.x -= interseccion.width;
-                else this.x += interseccion.width;
-
+                // Colisión Lateral
+                if (this.x < other.getX()) {
+                    speedX = -Math.abs(speedX);
+                    this.x -= interseccion.width;
+                } else {
+                    speedX = Math.abs(speedX);
+                    this.x += interseccion.width;
+                }
             } else {
-                // La colisión es por arriba o por abajo
+                // Colisión Superior/Inferior
                 speedY = -speedY;
-
-                // CORRECCIÓN: Sacamos a la pelota del objeto
                 if (this.y < other.getY()) this.y -= interseccion.height;
                 else this.y += interseccion.height;
+
+                // --- LÓGICA DE JUGABILIDAD EN LA PALA ---
+                if (other instanceof Player) {
+                    float centroPelota = this.x + (this.width / 2f);
+                    float centroPlayer = other.getX() + (other.getWidth() / 2f);
+
+                    // Calculamos dónde golpeó (-1 izquierda, 0 centro, 1 derecha)
+                    float relativaX = (centroPelota - centroPlayer) / (other.getWidth() / 2f);
+
+                    // Aplicamos la nueva velocidad horizontal basada en Config
+                    this.speedX = relativaX * Config.BALL_SPEED_X_MAX;
+
+                    // SEGURIDAD: Aseguramos que la velocidad Y no sea demasiado lenta tras el rebote
+                    if (Math.abs(speedY) < Config.BALL_SPEED_Y_MIN) {
+                        speedY = (speedY < 0) ? -Config.BALL_SPEED_Y_MIN : Config.BALL_SPEED_Y_MIN;
+                    }
+                }
             }
         } else if (other instanceof DeadLine) {
             gameState.loseLife();
@@ -85,7 +100,6 @@ public class Ball extends GameObject implements Collidable {
                 ((BaseLevel)scene).setRunning(false);
             } else {
                 // Si no, Game Over directo
-                gameState.reset(); // Opcional, según si quieres que el Game Over muestre el score final
                 scene.getGame().setScene(new GameOverScene(scene.getGame()));
             }
         }

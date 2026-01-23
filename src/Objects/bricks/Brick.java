@@ -61,5 +61,11 @@ public class Brick extends GameObject implements Collidable {
     public void render(Graphics2D g) {
         g.setColor(Config.BRICK_COLOR);
         g.fillRect((int)x, (int)y, width, height);
+
+        if (this.unbreakeable) {
+            // Negro con transparencia (R, G, B, Alpha)
+            g.setColor(new Color(0, 0, 0, 100));
+            g.fillRect((int)x, (int)y, width, height);
+        }
     }
 }

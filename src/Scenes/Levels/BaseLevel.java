@@ -86,7 +86,7 @@ public abstract class BaseLevel extends Scene {
         TextRenderer.draw(g, scoreString, 10, 20, new Font("Arial", Font.BOLD, 20), Color.BLUE);
         TextRenderer.drawRightAligned(g, String.format("%s%02d", Config.LIVES_TEXT, game.getGameState().getLives()), game.getWidth() - 10, 20, new Font("Arial", Font.BOLD, 20), Color.BLUE, null);
         if (!running) {
-            TextRenderer.drawCentered(g, "Pulsa ESPACIO para empezar", game.getWidth(), game.getHeight(), new Font("Arial", Font.BOLD, 25), Color.RED, Color.BLACK);
+            TextRenderer.drawCentered(g, "Pulsa ESPACIO para empezar", game.getWidth(), game.getHeight(), new Font("Arial", Font.BOLD, 25), Color.RED, new Color(0,0,0,200));
         }
     }
 
